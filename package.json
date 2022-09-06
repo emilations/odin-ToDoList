@@ -1,0 +1,28 @@
+{
+  "name": "odin-todolist",
+  "version": "1.0.0",
+  "description": "Basic todolist for The Odin Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack & webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilations/odin-ToDoList.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilations/odin-ToDoList/issues"
+  },
+  "homepage": "https://github.com/emilations/odin-ToDoList#readme",
+  "devDependencies": {
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.1"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.2"
+  }
+}
