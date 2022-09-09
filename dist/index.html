@@ -1,13 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="main.js"></script>
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="main.js" defer></script>
+    <link rel="shortcut icon" href="./format-list-checks-white.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Todo List</title>
+  </head>
+  <body>
+    <div class="container-main">
+      <div class="container-left">
+        <div class="container-project">
+          <div id="project-title">Projects</div>
+
+          <div class="project-entry project-entry-active">
+            <div class="project-name">Room renovation</div>
+            <img src="./icons8-trash-96-active.svg" alt="delete-icon">
+          </div>
+
+          <div class="project-entry project-entry-nonactive">
+            <div class="project-name">Toilet renovation</div>
+            <img src="./icons8-trash-96-nonactive.svg" alt="delete icon">
+          </div>
+
+          <div class="project-entry project-entry-nonactive">
+            <div class="project-name">Camping preperation</div>
+            <img src="./icons8-trash-96-nonactive.svg" alt="delete icon">
+          </div>
+
+          <div class="project-entry project-add">
+            <div class="project-name">add project</div>
+            <img src="./icons8-plus-math.png" alt="delete icon">
+          </div>
+
+        </div>
+        <div class="footer">
+          <p>icons by</p>
+          <a target="_blank" href="https://icons8.com">Icons8</a>
+        </div>
+      </div>
+
+      <div class="container-right">
+        <div class="container-task">
+          <div id="task-title">Tasks</div>
+
+          <div class="task-entry">
+            <img src="./icons8-checkmark_unchecked-96.png" alt="delete-icon">
+            <div class="task-name">Chose paint color</div>
+            <img src="./icons8-trash-96-active.svg" alt="delete-icon">
+          </div>
+
+          <div class="task-entry task-entry-nonactive">
+            <img src="./icons8-checkmark_checked-96.png" alt="delete-icon">
+            <div class="task-name">Get all important supplies</div>
+            <img src="./icons8-trash-96-nonactive.svg" alt="delete icon">
+          </div>
+
+          <div class="task-entry">
+            <img src="./icons8-checkmark_unchecked-96.png" alt="delete-icon">
+            <div class="task-name">Paint</div>
+            <img src="./icons8-trash-96-active.svg" alt="delete icon">
+          </div>
+
+          <div class="task-entry task-add">
+            <div class="task-name">add task</div>
+            <img src="./icons8-plus-math.png" alt="delete icon">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
