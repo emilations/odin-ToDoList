@@ -1,12 +1,19 @@
-let task = function(tasktitle,dueDate) {
-    let eww = {
-    tasktitle,
-    dueDate
-    }
-    console.log(eww)
-};
+let tasks = function() {
+  
+  let create = function(taskTitle, description, dueDate, priority, notes, checklist) {
+    return ({
+      taskTitle,
+      description,
+      dueDate,
+      priority,
+      notes,
+      checklist,
+    })
+  }
 
+  return{
+    create,
+  }
+}()
 
-task("emile","emile")
-
-export { task }
+export { tasks }
