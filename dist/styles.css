@@ -48,6 +48,7 @@
   padding: 1rem 1rem;
   font-size: 1.3rem;
   border-radius: 5px;
+  color: rgb(126, 126, 126);
 }
 
 /* replace this by JS*/
@@ -59,10 +60,8 @@
 
 .project-entry-active {
   background-color: #4e5152;
-}
+  color: rgb(235, 235, 235);
 
-.project-entry-nonactive {
-  color: rgb(126, 126, 126);
 }
 
 .project-entry img {
@@ -123,10 +122,6 @@
   border-radius: 5px;
 }
 
-/* .task-entry-active {
-  background-color: #4e5152;
-} */
-
 .task-entry-nonactive {
   color: rgb(126, 126, 126);
   text-decoration: line-through;
@@ -139,6 +134,10 @@
 .task-add {
   justify-self: end;
   gap: 0.9rem;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Remove defaults */

@@ -1,25 +1,45 @@
-import { projects } from "./projects";
+// MEMORY ---------------------------------------------------------------------
 
-let database = function(){
-
-  let write = function(obj) {
-    localStorage.setItem("tasks", JSON.stringify(obj))
-  }
-
-  let read = function(key) {
-    if (key == "tasks") {
-      console.log(localStorage.getItem("tasks"));
-    } else if (key == "projects") {
-      console.log
+let memory = (function () {
+  let projects = [];
+  let writeProject = function (project) {
+    projects.push(project);
+  };
+  let writeTask = function (task, projectTitle) {
+    projects.forEach((elem) => write(elem));
+    function write(e) {
+      if (e.project.title == projectTitle) {
+        e.addTask(task);
+      }
     }
-  }
+  };
+  let getProject = function () {
+    return [...projects];
+  };
+  return {
+    writeProject,
+    writeTask,
+    getProject,
+  };
+})();
+
+// DATABASE MODULE ------------------------------------------------------------
+let database = (function () {
+  let write = function (obj) {
+    localStorage.setItem("main", JSON.stringify(obj));
+  };
+
+  let read = function () {
+    return JSON.parse(localStorage.getItem("main"));
+  };
+
+  let reset = function () {};
 
   return {
     write,
     read,
-  }
-}()
+    reset,
+  };
+})();
 
-export { database }
-
-// localStorage.setItem("tasks",)
+export { memory, database };

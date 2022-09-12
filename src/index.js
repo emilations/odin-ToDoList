@@ -1,14 +1,16 @@
 import { compareAsc, format } from 'date-fns';
-import { task, project, database } from './logic';
-
-window.task = task;
-window.project = project;
-window.database = database;
+import { control } from "./logic"
+import { memory } from "./database";
+import { display } from "./display"
 
 
+window.control = control;
+window.memory = memory;
+
+display.cacheDOM();
+display.buttonListener();
 
 // -----------------------------------------------------------------------------------
-
 
 // format(new Date(2014, 1, 11), 'yyyy-MM-dd')
 // //=> '2014-02-11'
