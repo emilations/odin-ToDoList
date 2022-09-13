@@ -18,7 +18,7 @@ let memory = (function () {
 
   let getTaskCounter = function (indexProject) {
     return projects[indexProject].project.tasks.length
-  }
+  };
   
   let getProject = function () {
     return [...projects];
@@ -26,7 +26,11 @@ let memory = (function () {
 
   let editProject = function (indexProject, title) {
     projects[indexProject].project.title = title;
-  }
+  };
+
+  let deleteTask = function (indexTask, indexProject) {
+    projects[indexProject].project.tasks.splice(indexTask, 1)
+  };
 
   return {
     addProject,
@@ -35,6 +39,7 @@ let memory = (function () {
     getTaskCounter,
     getProject,
     editProject,
+    deleteTask,
   };
 })();
 

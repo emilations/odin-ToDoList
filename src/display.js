@@ -45,11 +45,12 @@ let display = (function () {
 
   function deleteTaskListen() {
     let taskDeleteButtons = document.querySelectorAll("#deleteTask");
-    console.log(taskDeleteButtons)
-    taskDeleteButtons.forEach((elem) => elem
-      .addEventListener("click", function(e){
-        control.deleteTask(e.target.dataset.counter)
-      }))
+    taskDeleteButtons.forEach((elem) =>
+      elem.addEventListener("click", function (e) {
+        control.deleteTask(e.target.dataset.counter, selectedProject);
+        refresh();
+      })
+    );
   }
 
   function populateTasks() {
