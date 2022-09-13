@@ -1,28 +1,23 @@
 // PROJECT FACTORY FUNCTION  --------------------------------------------------
-let project = function (title) {
-  let project = {
-    title,
-    tasks: [],
-  }
-  let addTask = function (newTask) {
-    project.tasks.push(newTask)
-  };
+let projectFactory = function () {
   return {
-    project,
-    addTask,
+    project: {
+      title: "",
+      tasks: [],
+    },
+    addTask: function (newTask) {
+      this.project.tasks.push(newTask)
+    },
   };
 };
 
 // TASK FACTORY FUNCTION-------------------------------------------------------
-let task = function (title, dueDate) {
-  let task = {
-    title,
-    dueDate,
-    done: false,
-  };
+let taskFactory = function () {
   return {
-    task,
-  };
+    title: "",
+    dueDate: "",
+    done: false,
+  };;
 };
 
-export { project, task }
+export { projectFactory, taskFactory }

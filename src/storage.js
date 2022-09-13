@@ -1,25 +1,40 @@
 // MEMORY ---------------------------------------------------------------------
-
 let memory = (function () {
   let projects = [];
-  let writeProject = function (project) {
+
+  let addProject = function (project) {
     projects.push(project);
+    return getProjectCounter()
   };
-  let writeTask = function (task, projectTitle) {
-    projects.forEach((elem) => write(elem));
-    function write(e) {
-      if (e.project.title == projectTitle) {
-        e.addTask(task);
-      }
-    }
+
+  let addTask = function (indexProject, task) {
+    projects[indexProject].addTask(task)
+    return getTaskCounter(indexProject)
   };
+
+  let getProjectCounter = function () {
+    return projects.length;
+  };
+
+  let getTaskCounter = function (indexProject) {
+    return projects[indexProject].project.tasks.length
+  }
+  
   let getProject = function () {
     return [...projects];
   };
+
+  let editProject = function (indexProject, title) {
+    projects[indexProject].project.title = title;
+  }
+
   return {
-    writeProject,
-    writeTask,
+    addProject,
+    addTask,
+    getProjectCounter,
+    getTaskCounter,
     getProject,
+    editProject,
   };
 })();
 

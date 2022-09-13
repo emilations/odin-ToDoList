@@ -1,6 +1,6 @@
 import { compareAsc, format } from 'date-fns';
 import { control } from "./logic"
-import { memory } from "./database";
+import { memory } from "./storage";
 import { display } from "./display"
 
 
