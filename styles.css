@@ -71,6 +71,7 @@
 .project-add {
   justify-self: end;
   gap: 0.9rem;
+  color: rgb(235, 235, 235);
 }
 
 .footer {
