@@ -101,6 +101,7 @@ let display = (function () {
     let input = htmlCreator.projectMod(index, projectName);
     console.log(projectName)
     projectEntry.replaceWith(input);
+    
   }
 
   function refresh() {
