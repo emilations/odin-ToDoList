@@ -38,6 +38,7 @@ let memory = (function () {
 
   let deleteProject = function (indexProject) {
     projects.splice(indexProject, 1)
+    return projects.length;
   }
 
   return {

@@ -20,16 +20,6 @@ let display = (function () {
     taskAddButton.addEventListener("click", createTask);
   }
 
-  function projectListen() {
-    let projects = document.querySelectorAll(".project-data");
-    projects.forEach((elem) =>
-      elem.addEventListener("click", function (e) {
-        selectedProject = e.target.dataset.counter;
-        refresh();
-      })
-    );
-  }
-
   function populateProjects() {
     projectContainer.innerHTML = "";
     let projectList = control.getProjects();
@@ -53,17 +43,6 @@ let display = (function () {
     );
   }
 
-  function deleteProjectListen() {
-    let ProjectDeleteButtons = document.querySelectorAll("#deleteProject");
-    ProjectDeleteButtons.forEach((elem) =>
-      elem.addEventListener("click", function (e) {
-        control.deleteProject(e.target.dataset.counter);
-        selectedProject = 0;
-        refresh();
-      })
-    );
-  }
-
   function populateTasks() {
     taskContainer.innerHTML = "";
     let taskList = control.getProjects()[selectedProject].project.tasks;
@@ -82,27 +61,55 @@ let display = (function () {
     refresh();
   }
 
-  function listenProjectTitleMod() {
-    let editIcons = document.querySelectorAll("#editProject");
-    editIcons.forEach((elem) => elem.addEventListener("click", modifyTitle))
-    function modifyTitle(e) {
-      let projectIndex = e.target.dataset.counter;
-      let newTitle ="";
-      console.log("ready")
-      console.log(projectIndex)
+  function listenProject() {
+    let projects = document.querySelectorAll(".project-data");
+    projects.forEach((elem) => elem.addEventListener("click", function(e){
+      if (e.target.id == "deleteProject") {
+        deleteProjectListen(e.target.dataset.counter)
+      } else if (e.target.id == "editProject") {
+        projectListen(e.target.dataset.counter)
+        listenProjectTitleMod(e);
+      } else {
+        projectListen(e.target.dataset.counter)
+      }
+    }))
+  }
+
+  function projectListen(counter) {
+    selectedProject = counter
+    refresh();
+  }
+
+  function deleteProjectListen(counter) {
+    let newSize = control.deleteProject(counter) - 1;
+    if (selectedProject > newSize) {
+      selectedProject = selectedProject - 1;
     }
+    refresh();
+  }
+
+  // PROJECT NAME EDIT WHEN EDIT BUTTON PRESSED
+  function listenProjectTitleMod(e) {
+    let index = e.target.dataset.counter;
+    console.log(index)
+    let projectEntry = document
+    .querySelector(
+      `.project-entry[data-counter="${index}"]`);
+    // let projectName = projectEntry.
+    console.dir(projectEntry)
+    let projectName = projectEntry.childNodes[0].textContent
+    let input = htmlCreator.projectMod(index, projectName);
+    console.log(projectName)
+    projectEntry.replaceWith(input);
   }
 
   function refresh() {
     cacheDOM();
     buttonListener();
     populateProjects();
-    populateTasks();  
+    populateTasks();
     deleteTaskListen();
-    projectListen();
-    deleteProjectListen();
-    listenProjectTitleMod();
-    console.log("refreshed")
+    listenProject();
   }
 
   return {

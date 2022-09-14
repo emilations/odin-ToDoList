@@ -29,6 +29,38 @@ let htmlCreator = (function () {
     return projectEntry;
   };
 
+  // CREATE THE HTML FOR THE PROJECT ENTRY MODIFICATION
+
+  let projectMod = function (index, title) {
+    let projectEntry = document.createElement("div");
+    projectEntry.classList.add("project-entry", "project-data", "project-entry-active");
+    projectEntry.setAttribute("data-counter", index);
+
+    let input = document.createElement("input");
+    input.classList.add("input-project-name")
+    input.setAttribute("data-counter", index);
+    input.type = "text";
+    input.value = title;
+
+    let editIcon = document.createElement("img");
+    editIcon.setAttribute("id", "editProject");
+    editIcon.src = "./assets/icons8-edit-96.png";
+    editIcon.setAttribute("data-counter", index);
+    editIcon.alt = "Edit Icon";
+
+    let deleteIcon = document.createElement("img");
+    deleteIcon.setAttribute("id", "deleteProject");
+    deleteIcon.src = "/assets/icons8-trash-96-nonactive.svg";
+    deleteIcon.setAttribute("data-counter", index);
+    deleteIcon.alt = "delete Icon";
+
+    projectEntry.appendChild(input);
+    projectEntry.appendChild(editIcon);
+    projectEntry.appendChild(deleteIcon);
+
+    return projectEntry;
+  };
+
   // CREATE THE HTML FOR THE TASK ENTRY -----------------------------------------
   let task = function (index, title) {
     let taskEntry = document.createElement("div");
@@ -59,6 +91,7 @@ let htmlCreator = (function () {
 
   return {
     project,
+    projectMod,
     task,
   };
 })();

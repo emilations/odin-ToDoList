@@ -35,7 +35,7 @@ let control = (function () {
   };
 
   function deleteProject (indexProject) {
-    memory.deleteProject(indexProject)
+    return memory.deleteProject(indexProject)
   }
 
   return {
