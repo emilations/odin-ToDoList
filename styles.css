@@ -140,6 +140,14 @@
   display: none;
 }
 
+.input-project-name {
+  color: black;
+  font-size: 1.3rem;
+  width: 90%;
+  box-sizing: border-box;
+  border: 0px;
+}
+
 /* Remove defaults */
 
 /* unvisited link */
