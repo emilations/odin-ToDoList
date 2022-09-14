@@ -1,27 +1,36 @@
 // CREATE THE HTML FOR THE PROJECT ENTRY --------------------------------------
 let htmlCreator = (function () {
-  let project = function (index) {
+  let project = function (index, title) {
     let projectEntry = document.createElement("div");
     projectEntry.classList.add("project-entry", "project-data");
     projectEntry.setAttribute("data-counter", index);
 
     let projectName = document.createElement("div");
-    projectName.textContent = `New project ${index + 1}`;
+    projectName.textContent = title;
     projectName.classList.add("project-name");
     projectName.setAttribute("data-counter", index);
 
+    let editIcon = document.createElement("img");
+    editIcon.setAttribute("id", "editProject");
+    editIcon.src = "./assets/icons8-edit-96.png";
+    editIcon.setAttribute("data-counter", index);
+    editIcon.alt = "Edit Icon";
+
     let deleteIcon = document.createElement("img");
+    deleteIcon.setAttribute("id", "deleteProject");
     deleteIcon.src = "/assets/icons8-trash-96-nonactive.svg";
+    deleteIcon.setAttribute("data-counter", index);
     deleteIcon.alt = "delete Icon";
 
     projectEntry.appendChild(projectName);
+    projectEntry.appendChild(editIcon);
     projectEntry.appendChild(deleteIcon);
 
     return projectEntry;
   };
 
   // CREATE THE HTML FOR THE TASK ENTRY -----------------------------------------
-  let task = function (index) {
+  let task = function (index, title) {
     let taskEntry = document.createElement("div");
     taskEntry.classList.add("task-entry", "task-data");
     taskEntry.setAttribute("data-counter", index);
@@ -31,7 +40,7 @@ let htmlCreator = (function () {
     checkmarkIcon.alt = "delete Icon";
 
     let taskName = document.createElement("div");
-    taskName.textContent = `New task ${index + 1}`;
+    taskName.textContent = title;
     taskName.classList.add("project-name");
     taskName.setAttribute("data-counter", index);
 

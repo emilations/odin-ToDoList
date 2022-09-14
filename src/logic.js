@@ -4,23 +4,39 @@ import { memory } from "./storage";
 let control = (function () {
   let createProject = function () {
     let newProject = projectFactory();
-    return memory.addProject(newProject) - 1; //returns new project index
+    let counter = memory.addProject(newProject) - 1;
+    let projectName = `New project`
+    modifyProject(counter, projectName)
+    return counter; //returns new project index
   };
 
   let createTask = function (indexProject) {
     let newTask = taskFactory();
-    return memory.addTask(indexProject, newTask) - 1;
+    let counter = memory.addTask(indexProject, newTask) - 1;
+    let taskName = `New task`;
+    modifyTask(counter, indexProject, taskName)
+    return counter;
   };
 
   let deleteTask = function (indexTask, indexProject) {
     memory.deleteTask(indexTask, indexProject)
   };
 
-  let modifyProject = function (indexProject) {};
+  function modifyProject (indexProject, title) {
+    memory.editProject(indexProject, title)
+  };
+
+  function modifyTask (counter, indexProject, taskName) {
+    memory.editTask(counter, indexProject, taskName)
+  }
 
   let getProjects = function () {
     return memory.getProject();
   };
+
+  function deleteProject (indexProject) {
+    memory.deleteProject(indexProject)
+  }
 
   return {
     createProject,
@@ -28,6 +44,7 @@ let control = (function () {
     deleteTask,
     modifyProject,
     getProjects,
+    deleteProject,
   };
 })();
 

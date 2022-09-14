@@ -1,8 +1,8 @@
 // PROJECT FACTORY FUNCTION  --------------------------------------------------
-let projectFactory = function () {
+let projectFactory = function (title) {
   return {
     project: {
-      title: "",
+      title,
       tasks: [],
     },
     addTask: function (newTask) {
@@ -12,9 +12,9 @@ let projectFactory = function () {
 };
 
 // TASK FACTORY FUNCTION-------------------------------------------------------
-let taskFactory = function () {
+let taskFactory = function (title) {
   return {
-    title: "",
+    title,
     dueDate: "",
     done: false,
   };;
