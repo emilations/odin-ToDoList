@@ -63,20 +63,22 @@ let display = (function () {
 
   function listenProject() {
     let projects = document.querySelectorAll(".project-data");
-    projects.forEach((elem) => elem.addEventListener("click", function(e){
-      if (e.target.id == "deleteProject") {
-        deleteProjectListen(e.target.dataset.counter)
-      } else if (e.target.id == "editProject") {
-        projectListen(e.target.dataset.counter)
-        listenProjectTitleMod(e);
-      } else {
-        projectListen(e.target.dataset.counter)
-      }
-    }))
+    projects.forEach((elem) =>
+      elem.addEventListener("click", function (e) {
+        if (e.target.id == "deleteProject") {
+          deleteProjectListen(e.target.dataset.counter);
+        } else if (e.target.id == "editProject") {
+          projectListen(e.target.dataset.counter);
+          listenProjectTitleMod(e);
+        } else {
+          projectListen(e.target.dataset.counter);
+        }
+      })
+    );
   }
 
   function projectListen(counter) {
-    selectedProject = counter
+    selectedProject = counter;
     refresh();
   }
 
@@ -91,17 +93,16 @@ let display = (function () {
   // PROJECT NAME EDIT WHEN EDIT BUTTON PRESSED
   function listenProjectTitleMod(e) {
     let index = e.target.dataset.counter;
-    console.log(index)
-    let projectEntry = document
-    .querySelector(
-      `.project-entry[data-counter="${index}"]`);
+    console.log(index);
+    let projectEntry = document.querySelector(
+      `.project-entry[data-counter="${index}"]`
+    );
     // let projectName = projectEntry.
-    console.dir(projectEntry)
-    let projectName = projectEntry.childNodes[0].textContent
+    console.dir(projectEntry);
+    let projectName = projectEntry.childNodes[0].textContent;
     let input = htmlCreator.projectMod(index, projectName);
-    console.log(projectName)
+    console.log(projectName);
     projectEntry.replaceWith(input);
-    
   }
 
   function refresh() {
