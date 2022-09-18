@@ -93,16 +93,21 @@ let display = (function () {
   // PROJECT NAME EDIT WHEN EDIT BUTTON PRESSED
   function listenProjectTitleMod(e) {
     let index = e.target.dataset.counter;
-    console.log(index);
     let projectEntry = document.querySelector(
       `.project-entry[data-counter="${index}"]`
     );
-    // let projectName = projectEntry.
-    console.dir(projectEntry);
     let projectName = projectEntry.childNodes[0].textContent;
     let input = htmlCreator.projectMod(index, projectName);
-    console.log(projectName);
     projectEntry.replaceWith(input);
+    console.log(input)
+    input.addEventListener("keydown", function(e){
+      console.log(e.key)
+      if ( e.key === "Enter"){
+        let newName = (document.querySelector(".input-project-name").value);
+        control.modifyProject(index, newName)
+        refresh()
+      }
+    })
   }
 
   function refresh() {
