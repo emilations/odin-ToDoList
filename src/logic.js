@@ -19,7 +19,7 @@ let control = (function () {
   };
 
   let deleteTask = function (indexTask, indexProject) {
-    memory.deleteTask(indexTask, indexProject)
+    return memory.deleteTask(indexTask, indexProject)
   };
 
   function modifyProject (indexProject, title) {
@@ -45,6 +45,7 @@ let control = (function () {
     modifyProject,
     getProjects,
     deleteProject,
+    modifyTask,
   };
 })();
 

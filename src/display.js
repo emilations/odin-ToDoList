@@ -7,6 +7,7 @@ let display = (function () {
   let projectContainer;
   let taskContainer;
   let selectedProject = 0;
+  let selectedTask = 0;
 
   function cacheDOM() {
     projectAddButton = document.querySelector(".project-add");
@@ -28,19 +29,10 @@ let display = (function () {
         htmlCreator.project(index, elem.project.title)
       );
     });
-    document
-      .querySelectorAll(".project-data")
-      [selectedProject].classList.add("project-entry-active");
-  }
-
-  function deleteTaskListen() {
-    let taskDeleteButtons = document.querySelectorAll("#deleteTask");
-    taskDeleteButtons.forEach((elem) =>
-      elem.addEventListener("click", function (e) {
-        control.deleteTask(e.target.dataset.counter, selectedProject);
-        refresh();
-      })
-    );
+    let active = document.querySelectorAll(".project-data")[selectedProject]
+    active.classList.add("project-entry-active");
+    active.childNodes[1].src = "./assets/icons8-edit-96-active.png"
+    active.childNodes[2].src = "./assets/icons8-trash-96-active.svg"    
   }
 
   function populateTasks() {
@@ -49,6 +41,9 @@ let display = (function () {
     taskList.forEach((elem, index) => {
       taskContainer.appendChild(htmlCreator.task(index, elem.title));
     });
+    let active = document.querySelectorAll(".task-data")[selectedTask]
+    if (!active){return}
+    active.classList.add("task-entry-active");
   }
 
   function createProject(e) {
@@ -66,19 +61,50 @@ let display = (function () {
     projects.forEach((elem) =>
       elem.addEventListener("click", function (e) {
         if (e.target.id == "deleteProject") {
+          console.log('delete task')
           deleteProjectListen(e.target.dataset.counter);
         } else if (e.target.id == "editProject") {
-          projectListen(e.target.dataset.counter);
+          projectActive(e.target.dataset.counter);
           listenProjectTitleMod(e);
         } else {
-          projectListen(e.target.dataset.counter);
+          projectActive(e.target.dataset.counter);
         }
       })
     );
   }
 
-  function projectListen(counter) {
+  function listenTask() {
+    let tasks = document.querySelectorAll(".task-data");
+    tasks.forEach((elem) =>
+      elem.addEventListener("click", function (e) {
+        if (e.target.id == "deleteTask") {
+          deleteTask(e.target.dataset.counter);
+        } else if (e.target.id == "editTask") {
+          taskActive(e.target.dataset.counter)
+          listenTaskMod(e)
+        } else {
+          taskActive(e.target.dataset.counter)
+        }
+      })
+    );
+  }
+
+  function taskActive(counter) {
+    selectedTask = counter;
+    refresh()
+  }
+
+  function projectActive(counter) {
     selectedProject = counter;
+    refresh();
+  }
+
+  function deleteTask(taskCounter) {
+    let newSize = control.deleteTask(taskCounter, selectedProject) - 1;
+    console.log(newSize)
+    if (selectedTask > newSize) {
+      selectedTask = selectedTask - 1;
+    }
     refresh();
   }
 
@@ -90,6 +116,33 @@ let display = (function () {
     refresh();
   }
 
+  function listenTaskMod(e) {
+    let index = e.target.dataset.counter;
+    let taskEntry = document.querySelector(
+      `.task-entry[data-counter="${index}"]`
+    );
+    console.log(taskEntry)
+    let taskName = taskEntry.childNodes[1].textContent;
+    let input = htmlCreator.taskMod(index, taskName);
+    taskEntry.replaceWith(input);
+
+    let doneButton = document.querySelector(
+      `[id="doneModificationTask"][data-counter="${index}"]`
+    );
+    doneButton.addEventListener("click", function (e) {
+      let newName = document.querySelector(".input-task-name").value;
+      control.modifyTask(index, selectedProject, newName);
+      refresh();
+    })
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        let newName = document.querySelector(".input-task-name").value;
+        control.modifyTask(index, selectedProject, newName);
+        refresh();
+      }
+    });
+  }
+
   // PROJECT NAME EDIT WHEN EDIT BUTTON PRESSED
   function listenProjectTitleMod(e) {
     let index = e.target.dataset.counter;
@@ -99,15 +152,23 @@ let display = (function () {
     let projectName = projectEntry.childNodes[0].textContent;
     let input = htmlCreator.projectMod(index, projectName);
     projectEntry.replaceWith(input);
-    console.log(input)
-    input.addEventListener("keydown", function(e){
-      console.log(e.key)
-      if ( e.key === "Enter"){
-        let newName = (document.querySelector(".input-project-name").value);
-        control.modifyProject(index, newName)
-        refresh()
-      }
+
+    let doneButton = document.querySelector(
+      `[id="doneModificationProject"][data-counter="${index}"]`
+    );
+    doneButton.addEventListener("click", function (e) {
+      let newName = document.querySelector(".input-project-name").value;
+      control.modifyProject(index, newName);
+      refresh();
     })
+
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        let newName = document.querySelector(".input-project-name").value;
+        control.modifyProject(index, newName);
+        refresh();
+      }
+    });
   }
 
   function refresh() {
@@ -115,8 +176,8 @@ let display = (function () {
     buttonListener();
     populateProjects();
     populateTasks();
-    deleteTaskListen();
     listenProject();
+    listenTask();
   }
 
   return {

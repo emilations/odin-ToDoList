@@ -42,20 +42,20 @@ let htmlCreator = (function () {
     input.type = "text";
     input.value = title;
 
-    let editIcon = document.createElement("img");
-    editIcon.setAttribute("id", "editProject");
-    editIcon.src = "./assets/icons8-edit-96.png";
-    editIcon.setAttribute("data-counter", index);
-    editIcon.alt = "Edit Icon";
+    let doneIcon = document.createElement("img");
+    doneIcon.setAttribute("id", "doneModificationProject");
+    doneIcon.src = "./assets/icons8-done-96.png";
+    doneIcon.setAttribute("data-counter", index);
+    doneIcon.alt = "Done Icon";
 
     let deleteIcon = document.createElement("img");
     deleteIcon.setAttribute("id", "deleteProject");
-    deleteIcon.src = "/assets/icons8-trash-96-nonactive.svg";
+    deleteIcon.src = "/assets/icons8-trash-96-active.svg";
     deleteIcon.setAttribute("data-counter", index);
     deleteIcon.alt = "delete Icon";
 
     projectEntry.appendChild(input);
-    projectEntry.appendChild(editIcon);
+    projectEntry.appendChild(doneIcon);
     projectEntry.appendChild(deleteIcon);
 
     return projectEntry;
@@ -73,17 +73,59 @@ let htmlCreator = (function () {
 
     let taskName = document.createElement("div");
     taskName.textContent = title;
-    taskName.classList.add("project-name");
+    taskName.classList.add("task-name");
     taskName.setAttribute("data-counter", index);
+
+    let editIcon = document.createElement("img");
+    editIcon.setAttribute("id", "editTask");
+    editIcon.src = "./assets/icons8-edit-96-active.png";
+    editIcon.setAttribute("data-counter", index);
+    editIcon.alt = "Edit Icon";
 
     let deleteIcon = document.createElement("img");
     deleteIcon.setAttribute("id", "deleteTask");
     deleteIcon.setAttribute("data-counter", index);
-    deleteIcon.src = "./assets/icons8-trash-96-nonactive.svg";
+    deleteIcon.src = "./assets/icons8-trash-96-active.svg";
     deleteIcon.alt = "delete Icon";
 
     taskEntry.appendChild(checkmarkIcon);
     taskEntry.appendChild(taskName);
+    taskEntry.appendChild(editIcon)
+    taskEntry.appendChild(deleteIcon);
+
+    return taskEntry;
+  };
+
+  let taskMod = function (index, title) {
+    let taskEntry = document.createElement("div");
+    taskEntry.classList.add("task-entry", "task-data");
+    taskEntry.setAttribute("data-counter", index);
+
+    let checkmarkIcon = document.createElement("img");
+    checkmarkIcon.src = "./assets/icons8-checkmark_unchecked-96.png";
+    checkmarkIcon.alt = "delete Icon";
+
+    let input = document.createElement("input");
+    input.classList.add("input-task-name")
+    input.setAttribute("data-counter", index);
+    input.type = "text";
+    input.value = title;
+
+    let doneIcon = document.createElement("img");
+    doneIcon.setAttribute("id", "doneModificationTask");
+    doneIcon.src = "./assets/icons8-done-96.png";
+    doneIcon.setAttribute("data-counter", index);
+    doneIcon.alt = "Done Icon";
+
+    let deleteIcon = document.createElement("img");
+    deleteIcon.setAttribute("id", "deleteTask");
+    deleteIcon.setAttribute("data-counter", index);
+    deleteIcon.src = "./assets/icons8-trash-96-active.svg";
+    deleteIcon.alt = "delete Icon";
+
+    taskEntry.appendChild(checkmarkIcon);
+    taskEntry.appendChild(input);
+    taskEntry.appendChild(doneIcon);
     taskEntry.appendChild(deleteIcon);
 
     return taskEntry;
@@ -93,6 +135,7 @@ let htmlCreator = (function () {
     project,
     projectMod,
     task,
+    taskMod,
   };
 })();
 

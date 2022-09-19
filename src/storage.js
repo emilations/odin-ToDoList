@@ -26,6 +26,7 @@ let memory = (function () {
 
   let deleteTask = function (indexTask, indexProject) {
     projects[indexProject].project.tasks.splice(indexTask, 1)
+    return projects[indexProject].project.tasks.length;
   };
 
   let editProject = function (indexProject, title) {
