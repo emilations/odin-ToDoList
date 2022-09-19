@@ -7,8 +7,7 @@ import { display } from "./display"
 window.control = control;
 window.memory = memory;
 
-display.cacheDOM();
-display.buttonListener();
+display.refresh()
 
 // -----------------------------------------------------------------------------------
 

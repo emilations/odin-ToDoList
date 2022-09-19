@@ -146,6 +146,12 @@
   gap: 0.9rem;
 }
 
+.task-completed {
+  text-decoration: line-through;
+  color: rgb(126, 126, 126);
+
+}
+
 .hidden {
   display: none;
 }

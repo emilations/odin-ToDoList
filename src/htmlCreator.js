@@ -69,6 +69,8 @@ let htmlCreator = (function () {
 
     let checkmarkIcon = document.createElement("img");
     checkmarkIcon.src = "./assets/icons8-checkmark_unchecked-96.png";
+    checkmarkIcon.setAttribute("id", "task-complete")
+    checkmarkIcon.setAttribute("data-counter", index);
     checkmarkIcon.alt = "delete Icon";
 
     let taskName = document.createElement("div");
@@ -98,7 +100,7 @@ let htmlCreator = (function () {
 
   let taskMod = function (index, title) {
     let taskEntry = document.createElement("div");
-    taskEntry.classList.add("task-entry", "task-data");
+    taskEntry.classList.add("task-entry", "task-data", "task-entry-active");
     taskEntry.setAttribute("data-counter", index);
 
     let checkmarkIcon = document.createElement("img");

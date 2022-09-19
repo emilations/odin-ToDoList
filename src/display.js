@@ -29,25 +29,39 @@ let display = (function () {
         htmlCreator.project(index, elem.project.title)
       );
     });
-    let active = document.querySelectorAll(".project-data")[selectedProject]
+    let active = document.querySelectorAll(".project-data")[selectedProject];
+    if (!active) {
+      return;
+    }
     active.classList.add("project-entry-active");
-    active.childNodes[1].src = "./assets/icons8-edit-96-active.png"
-    active.childNodes[2].src = "./assets/icons8-trash-96-active.svg"    
+    active.childNodes[1].src = "./assets/icons8-edit-96-active.png";
+    active.childNodes[2].src = "./assets/icons8-trash-96-active.svg";
   }
 
   function populateTasks() {
     taskContainer.innerHTML = "";
+    if (control.getProjects().length == 0) {
+      selectedProject = 0;
+      return;
+    }
     let taskList = control.getProjects()[selectedProject].project.tasks;
     taskList.forEach((elem, index) => {
-      taskContainer.appendChild(htmlCreator.task(index, elem.title));
+      let entry = htmlCreator.task(index, elem.title);
+      if (elem.done) {
+        entry.classList.add("task-completed")
+        entry.childNodes[0].src = "./assets/icons8-checkmark_checked-96.png";
+        entry.childNodes[2].src = "./assets/icons8-edit-96.png";
+        entry.childNodes[3].src = "./assets/icons8-trash-96-nonactive.svg";
+      }
+      taskContainer.appendChild(entry);
     });
-    let active = document.querySelectorAll(".task-data")[selectedTask]
-    if (!active){return}
+    let active = document.querySelectorAll(".task-data")[selectedTask];
+    if (!active) {return}
     active.classList.add("task-entry-active");
   }
 
   function createProject(e) {
-    let indexProject = control.createProject();
+    control.createProject();
     refresh();
   }
 
@@ -61,8 +75,7 @@ let display = (function () {
     projects.forEach((elem) =>
       elem.addEventListener("click", function (e) {
         if (e.target.id == "deleteProject") {
-          console.log('delete task')
-          deleteProjectListen(e.target.dataset.counter);
+          deleteProject(e.target.dataset.counter);
         } else if (e.target.id == "editProject") {
           projectActive(e.target.dataset.counter);
           listenProjectTitleMod(e);
@@ -80,10 +93,14 @@ let display = (function () {
         if (e.target.id == "deleteTask") {
           deleteTask(e.target.dataset.counter);
         } else if (e.target.id == "editTask") {
-          taskActive(e.target.dataset.counter)
-          listenTaskMod(e)
+          taskActive(e.target.dataset.counter);
+          listenTaskMod(e);
+        } else if (e.target.id == "task-complete") {
+          taskActive(e.target.dataset.counter);
+          taskComplete(e);
+          refresh();
         } else {
-          taskActive(e.target.dataset.counter)
+          taskActive(e.target.dataset.counter);
         }
       })
     );
@@ -91,7 +108,7 @@ let display = (function () {
 
   function taskActive(counter) {
     selectedTask = counter;
-    refresh()
+    refresh();
   }
 
   function projectActive(counter) {
@@ -101,14 +118,14 @@ let display = (function () {
 
   function deleteTask(taskCounter) {
     let newSize = control.deleteTask(taskCounter, selectedProject) - 1;
-    console.log(newSize)
+    console.log(newSize);
     if (selectedTask > newSize) {
       selectedTask = selectedTask - 1;
     }
     refresh();
   }
 
-  function deleteProjectListen(counter) {
+  function deleteProject(counter) {
     let newSize = control.deleteProject(counter) - 1;
     if (selectedProject > newSize) {
       selectedProject = selectedProject - 1;
@@ -121,7 +138,6 @@ let display = (function () {
     let taskEntry = document.querySelector(
       `.task-entry[data-counter="${index}"]`
     );
-    console.log(taskEntry)
     let taskName = taskEntry.childNodes[1].textContent;
     let input = htmlCreator.taskMod(index, taskName);
     taskEntry.replaceWith(input);
@@ -133,7 +149,7 @@ let display = (function () {
       let newName = document.querySelector(".input-task-name").value;
       control.modifyTask(index, selectedProject, newName);
       refresh();
-    })
+    });
     input.addEventListener("keypress", function (e) {
       if (e.key === "Enter") {
         let newName = document.querySelector(".input-task-name").value;
@@ -143,7 +159,6 @@ let display = (function () {
     });
   }
 
-  // PROJECT NAME EDIT WHEN EDIT BUTTON PRESSED
   function listenProjectTitleMod(e) {
     let index = e.target.dataset.counter;
     let projectEntry = document.querySelector(
@@ -160,7 +175,7 @@ let display = (function () {
       let newName = document.querySelector(".input-project-name").value;
       control.modifyProject(index, newName);
       refresh();
-    })
+    });
 
     input.addEventListener("keypress", function (e) {
       if (e.key === "Enter") {
@@ -169,6 +184,10 @@ let display = (function () {
         refresh();
       }
     });
+  }
+
+  function taskComplete(e) {
+    control.taskComplete(e, selectedProject);
   }
 
   function refresh() {
@@ -183,6 +202,7 @@ let display = (function () {
   return {
     cacheDOM,
     buttonListener,
+    refresh,
   };
 })();
 

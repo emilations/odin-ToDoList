@@ -4,12 +4,12 @@ let memory = (function () {
 
   let addProject = function (project) {
     projects.push(project);
-    return getProjectCounter()
+    return getProjectCounter();
   };
 
   let addTask = function (indexProject, task) {
-    projects[indexProject].addTask(task)
-    return getTaskCounter(indexProject)
+    projects[indexProject].addTask(task);
+    return getTaskCounter(indexProject);
   };
 
   let getProjectCounter = function () {
@@ -17,15 +17,15 @@ let memory = (function () {
   };
 
   let getTaskCounter = function (indexProject) {
-    return projects[indexProject].project.tasks.length
+    return projects[indexProject].project.tasks.length;
   };
-  
+
   let getProject = function () {
     return [...projects];
   };
 
   let deleteTask = function (indexTask, indexProject) {
-    projects[indexProject].project.tasks.splice(indexTask, 1)
+    projects[indexProject].project.tasks.splice(indexTask, 1);
     return projects[indexProject].project.tasks.length;
   };
 
@@ -35,12 +35,20 @@ let memory = (function () {
 
   let editTask = function (indexTask, indexProject, title) {
     projects[indexProject].project.tasks[indexTask].title = title;
-  }
+  };
+
+  let completeTaskToggle = function (indexTask, indexProject) {
+    if (projects[indexProject].project.tasks[indexTask].done) {
+      projects[indexProject].project.tasks[indexTask].done = false;
+    } else {
+      projects[indexProject].project.tasks[indexTask].done = true;
+    }
+  };
 
   let deleteProject = function (indexProject) {
-    projects.splice(indexProject, 1)
+    projects.splice(indexProject, 1);
     return projects.length;
-  }
+  };
 
   return {
     addProject,
@@ -52,6 +60,7 @@ let memory = (function () {
     editTask,
     deleteTask,
     deleteProject,
+    completeTaskToggle,
   };
 })();
 
