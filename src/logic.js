@@ -26,8 +26,8 @@ let control = (function () {
     memory.editProject(indexProject, title);
   };
 
-  function modifyTask(counter, indexProject, taskName) {
-    memory.editTask(counter, indexProject, taskName);
+  function modifyTask(counter, indexProject, taskName, taskDate) {
+    memory.editTask(counter, indexProject, taskName, taskDate);
   };
 
   let getProjects = function () {

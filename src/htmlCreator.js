@@ -62,7 +62,7 @@ let htmlCreator = (function () {
   };
 
   // CREATE THE HTML FOR THE TASK ENTRY -----------------------------------------
-  let task = function (index, title) {
+  let task = function (index, title, date) {
     let taskEntry = document.createElement("div");
     taskEntry.classList.add("task-entry", "task-data");
     taskEntry.setAttribute("data-counter", index);
@@ -78,6 +78,11 @@ let htmlCreator = (function () {
     taskName.classList.add("task-name");
     taskName.setAttribute("data-counter", index);
 
+    let taskDate = document.createElement("p");
+    taskDate.textContent = date;
+    taskDate.classList.add('task-date')
+    taskDate.setAttribute("id", "task-date");
+
     let editIcon = document.createElement("img");
     editIcon.setAttribute("id", "editTask");
     editIcon.src = "./assets/icons8-edit-96-active.png";
@@ -92,13 +97,14 @@ let htmlCreator = (function () {
 
     taskEntry.appendChild(checkmarkIcon);
     taskEntry.appendChild(taskName);
-    taskEntry.appendChild(editIcon)
+    taskEntry.appendChild(taskDate);
+    taskEntry.appendChild(editIcon);
     taskEntry.appendChild(deleteIcon);
 
     return taskEntry;
   };
 
-  let taskMod = function (index, title) {
+  let taskMod = function (index, title, date) {
     let taskEntry = document.createElement("div");
     taskEntry.classList.add("task-entry", "task-data", "task-entry-active");
     taskEntry.setAttribute("data-counter", index);
@@ -112,6 +118,12 @@ let htmlCreator = (function () {
     input.setAttribute("data-counter", index);
     input.type = "text";
     input.value = title;
+
+    let taskDate = document.createElement("input");
+    taskDate.type = "date";
+    taskDate.value = date;
+    taskDate.classList.add("task-date");
+    taskDate.setAttribute("id", "task-date-input");
 
     let doneIcon = document.createElement("img");
     doneIcon.setAttribute("id", "doneModificationTask");
@@ -127,6 +139,7 @@ let htmlCreator = (function () {
 
     taskEntry.appendChild(checkmarkIcon);
     taskEntry.appendChild(input);
+    taskEntry.appendChild(taskDate);
     taskEntry.appendChild(doneIcon);
     taskEntry.appendChild(deleteIcon);
 

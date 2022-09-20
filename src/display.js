@@ -46,12 +46,12 @@ let display = (function () {
     }
     let taskList = control.getProjects()[selectedProject].project.tasks;
     taskList.forEach((elem, index) => {
-      let entry = htmlCreator.task(index, elem.title);
+      let entry = htmlCreator.task(index, elem.title, elem.dueDate);
       if (elem.done) {
         entry.classList.add("task-completed")
         entry.childNodes[0].src = "./assets/icons8-checkmark_checked-96.png";
-        entry.childNodes[2].src = "./assets/icons8-edit-96.png";
-        entry.childNodes[3].src = "./assets/icons8-trash-96-nonactive.svg";
+        entry.childNodes[3].src = "./assets/icons8-edit-96.png";
+        entry.childNodes[4].src = "./assets/icons8-trash-96-nonactive.svg";
       }
       taskContainer.appendChild(entry);
     });
@@ -99,6 +99,9 @@ let display = (function () {
           taskActive(e.target.dataset.counter);
           taskComplete(e);
           refresh();
+        } else if (e.target.id == "task-date") {  
+          taskActive(e.target.dataset.counter);
+          listenTaskMod(e);
         } else {
           taskActive(e.target.dataset.counter);
         }
@@ -135,21 +138,20 @@ let display = (function () {
 
   function listenTaskMod(e) {
     let index = e.target.dataset.counter;
-    let taskEntry = document.querySelector(
-      `.task-entry[data-counter="${index}"]`
-    );
+    let taskEntry = document.querySelector(`.task-entry[data-counter="${index}"]`);
     let taskName = taskEntry.childNodes[1].textContent;
-    let input = htmlCreator.taskMod(index, taskName);
+    let taskDate = taskEntry.childNodes[2].textContent;
+    let input = htmlCreator.taskMod(index, taskName, taskDate);
     taskEntry.replaceWith(input);
-
-    let doneButton = document.querySelector(
-      `[id="doneModificationTask"][data-counter="${index}"]`
-    );
+    
+    let doneButton = document.querySelector(`[id="doneModificationTask"][data-counter="${index}"]`);
     doneButton.addEventListener("click", function (e) {
       let newName = document.querySelector(".input-task-name").value;
-      control.modifyTask(index, selectedProject, newName);
+      let taskDate = document.querySelector("#task-date-input").value;
+      control.modifyTask(index, selectedProject, newName, taskDate);
       refresh();
     });
+
     input.addEventListener("keypress", function (e) {
       if (e.key === "Enter") {
         let newName = document.querySelector(".input-task-name").value;
