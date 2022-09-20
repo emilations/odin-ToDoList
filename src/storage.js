@@ -74,7 +74,7 @@ let memory = (function () {
 
 // DATABASE MODULE ------------------------------------------------------------
 let database = (function () {
-  let memoryobj = {
+  let memoryObj = {
     projects: [{
         name : 'project1',
         tasks: [
@@ -113,8 +113,8 @@ let database = (function () {
   let createJSON = function () {
   let array = memory.getProject();
   // array.forEach((elem) => )
-  console.dir(JSON.stringify(stringJSON))
-  console.dir(JSON.parse(JSON.stringify(stringJSON)))
+  console.dir(JSON.stringify(memoryObj))
+  console.dir(JSON.parse(JSON.stringify(memoryObj)))
   }
 
   let write = function (obj) {
