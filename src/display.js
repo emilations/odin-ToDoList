@@ -164,7 +164,8 @@ let display = (function () {
     input.addEventListener("keypress", function (e) {
       if (e.key === "Enter") {
         let newName = document.querySelector(".input-task-name").value;
-        control.modifyTask(index, selectedProject, newName);
+        let taskDate = document.querySelector("#task-date-input").value;
+        control.modifyTask(index, selectedProject, newName, taskDate);
         refresh();
       }
     });
