@@ -18,7 +18,7 @@ let htmlCreator = (function () {
 
     let deleteIcon = document.createElement("img");
     deleteIcon.setAttribute("id", "deleteProject");
-    deleteIcon.src = "/assets/icons8-trash-96-nonactive.svg";
+    deleteIcon.src = "./assets/icons8-trash-96-nonactive.svg";
     deleteIcon.setAttribute("data-counter", index);
     deleteIcon.alt = "delete Icon";
 
@@ -50,7 +50,7 @@ let htmlCreator = (function () {
 
     let deleteIcon = document.createElement("img");
     deleteIcon.setAttribute("id", "deleteProject");
-    deleteIcon.src = "/assets/icons8-trash-96-active.svg";
+    deleteIcon.src = "./assets/icons8-trash-96-active.svg";
     deleteIcon.setAttribute("data-counter", index);
     deleteIcon.alt = "delete Icon";
 
