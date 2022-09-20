@@ -1,16 +1,18 @@
+import { set } from "date-fns";
+
 // MEMORY ---------------------------------------------------------------------
 let memory = (function () {
   let projects = [];
 
   let addProject = function (project) {
     projects.push(project);
-    database.createJSON();
+    saveToStorage();
     return getProjectCounter();
   };
 
   let addTask = function (indexProject, task) {
     projects[indexProject].addTask(task);
-    database.createJSON();
+    saveToStorage();
     return getTaskCounter(indexProject);
   };
 
@@ -28,19 +30,19 @@ let memory = (function () {
 
   let deleteTask = function (indexTask, indexProject) {
     projects[indexProject].project.tasks.splice(indexTask, 1);
-    database.createJSON();
+    saveToStorage();
     return projects[indexProject].project.tasks.length;
   };
 
   let editProject = function (indexProject, title) {
     projects[indexProject].project.title = title;
-    database.createJSON();
+    saveToStorage();
   };
 
   let editTask = function (indexTask, indexProject, title, taskDate) {
     projects[indexProject].project.tasks[indexTask].title = title;
     projects[indexProject].project.tasks[indexTask].dueDate = taskDate;
-    database.createJSON();
+    saveToStorage();
   };
 
   let completeTaskToggle = function (indexTask, indexProject) {
@@ -49,14 +51,34 @@ let memory = (function () {
     } else {
       projects[indexProject].project.tasks[indexTask].done = true;
     }
-    database.createJSON();
+    saveToStorage();
   };
 
   let deleteProject = function (indexProject) {
     projects.splice(indexProject, 1);
-    database.createJSON();
+    saveToStorage();
     return projects.length;
   };
+
+  function clear(){
+    projects = [];
+  }
+
+  function saveToStorage(){
+    database.set(getProject());
+  }
+
+  function retrieveFromStorage(){
+    let temp = database.read();
+    temp.forEach((elem) => elem.addTask = function (newTask) {
+      this.project.tasks.push(newTask)
+    },)
+    projects =  [...temp];
+  }
+
+  function checkIfStorage(){
+    return database.read()
+  }
 
   return {
     addProject,
@@ -69,70 +91,26 @@ let memory = (function () {
     deleteTask,
     deleteProject,
     completeTaskToggle,
+    retrieveFromStorage,
+    checkIfStorage,
   };
 })();
 
 // DATABASE MODULE ------------------------------------------------------------
 let database = (function () {
-  let memoryObj = {
-    projects: [{
-        name : 'project1',
-        tasks: [
-          {
-            name: 'task1',
-            dueDate: "",
-            done: false,
-          },
-          {
-            name: 'task2',
-            dueDate: "",
-            done: false,
-          }
-        ]
-      },
-      {
-        name : 'project2',
-        tasks: [          {
-          name: 'task1',
-          dueDate: "",
-          done: false,
-        },
-        {
-          name: 'task2',
-          dueDate: "",
-          done: false,
-        }]
-      },
-      {
-        name : 'project1',
-        tasks: []
-      }
-      ]
-    };
 
-  let createJSON = function () {
-  let array = memory.getProject();
-  // array.forEach((elem) => )
-  console.dir(JSON.stringify(memoryObj))
-  console.dir(JSON.parse(JSON.stringify(memoryObj)))
-  }
-
-  let write = function (obj) {
+  function set(obj) {
     localStorage.setItem("main", JSON.stringify(obj));
   };
 
-  let read = function () {
+  function read() {
     return JSON.parse(localStorage.getItem("main"));
   };
 
-  let reset = function () {};
-
   return {
-    write,
+    set,
     read,
-    reset,
-    createJSON,
   };
 })();
 
-export { memory, database };
+export { memory };

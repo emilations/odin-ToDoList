@@ -110,6 +110,8 @@ let htmlCreator = (function () {
     taskEntry.setAttribute("data-counter", index);
 
     let checkmarkIcon = document.createElement("img");
+    checkmarkIcon.setAttribute("id", "task-complete")
+    checkmarkIcon.setAttribute("data-counter", index);
     checkmarkIcon.src = "./assets/icons8-checkmark_unchecked-96.png";
     checkmarkIcon.alt = "delete Icon";
 

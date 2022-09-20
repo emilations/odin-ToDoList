@@ -99,9 +99,6 @@ let display = (function () {
           taskActive(e.target.dataset.counter);
           taskComplete(e);
           refresh();
-        } else if (e.target.id == "task-date") {  
-          taskActive(e.target.dataset.counter);
-          listenTaskMod(e);
         } else {
           taskActive(e.target.dataset.counter);
         }
@@ -143,6 +140,18 @@ let display = (function () {
     let taskDate = taskEntry.childNodes[2].textContent;
     let input = htmlCreator.taskMod(index, taskName, taskDate);
     taskEntry.replaceWith(input);
+    
+    let tasks = document.querySelectorAll(".task-data");
+    tasks[index].addEventListener("click", function (e) {
+        if (e.target.id == "deleteTask") {
+          deleteTask(e.target.dataset.counter);
+        } else if (e.target.id == "task-complete") {
+          taskComplete(e);
+          refresh();
+        } else {
+          return;
+        }
+      })
     
     let doneButton = document.querySelector(`[id="doneModificationTask"][data-counter="${index}"]`);
     doneButton.addEventListener("click", function (e) {

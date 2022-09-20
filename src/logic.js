@@ -42,7 +42,11 @@ let control = (function () {
     memory.completeTaskToggle(e.target.dataset.counter, selectedProject);
   };
 
-  createProject();
+  if (!memory.checkIfStorage()){
+    createProject();
+  } else {
+    memory.retrieveFromStorage();
+  }
 
   return {
     createProject,
